@@ -312,7 +312,7 @@ handle_assert_expectations(State) ->
 %% @hidden
 reply_with_next_expectation(Type, Request, From, Msg, Info, State, Elec) -> % -> {ok, Reply, NewState}
     {ok, Expectation, NewState} = pop_expectation(State),
-    ?assert(Type =:= Expectation#expectation.type), % todo, have a useful error message, "expected this got that" 
+    %?assert(Type =:= Expectation#expectation.type), % todo, have a useful error message, "expected this got that" 
 
     {ok, Reply, NewState2} = try call_expectation_lambda(Expectation, Type, Request, From, Msg, Info, NewState, Elec) of
         {ok, R, State2} -> {ok, R, State2}

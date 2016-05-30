@@ -7,7 +7,7 @@ CFLAGS					= +debug_info -W0 -I include -pa $(EBIN)
 COMPILE					= $(CC) $(CFLAGS) -o $(EBIN)
 EBIN_DIRS				= $(wildcard deps/*/ebin)
 
-all: ebin compile
+all: ebin test/ebin compile
 	
 compile:
 	@$(ERL) -pa $(EBIN_DIRS) -pa $(EBIN) -noinput +B -eval 'case make:all() of up_to_date -> halt(0); error -> halt(1) end.'
@@ -15,6 +15,9 @@ compile:
 eunit:
 	cd test/include/eunit && make
 	
+test/ebin:
+	@mkdir test/ebin
+
 test: compile
 	$(ERL) -noshell -pa $(EBIN) -pa test/ebin -s test_suite test -s init stop
 	
